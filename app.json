@@ -5,6 +5,14 @@
       "bundler": "metro"
     },
     "name": "petpujo",
-    "slug": "petpujo"
+    "slug": "petpujo",
+    "extra": {
+      "eas": {
+        "projectId": "be3cf62a-bf57-4baa-a548-0b1030b9a228"
+      }
+    },
+    "android": {
+      "package": "com.spxd.petpujo"
+    }
   }
 }
