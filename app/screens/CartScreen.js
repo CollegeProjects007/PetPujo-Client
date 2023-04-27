@@ -10,7 +10,7 @@ export default function RestaurantPage() {
         justifyContent: "center",
       }}
     >
-      <Text>Restaurant Page</Text>
+      <Text>Cart Page</Text>
     </View>
   );
 }

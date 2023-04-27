@@ -1,15 +1,15 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 
-import { StyleSheet, View, Image, } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Input, NativeBaseProvider, Text, ScrollView } from "native-base";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import  BlurredBottomNav   from "./components/BlurredBottomNav";
+import BlurredBottomNav from "../components/BlurredBottomNav";
 
 const top_offer_items = [
   "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/top_offers/offer_tile_1.jpg?raw=true",
@@ -21,17 +21,24 @@ const top_offer_items = [
 ];
 
 const restaurants = [
-  "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+  [
+    "Shark Tank",
+    "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+  ],
+  [
+    "Arshalan",
+    "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+  ],
 ];
 
-export default function Page() {
+function HomeScreen() {
   return (
     <NativeBaseProvider>
       <SafeAreaView>
         <ScrollView>
           <View style={styles.container}>
             <StatusBar style="auto" />
-            <Input
+            {/* <Input
               placeholder="Search"
               variant="filled"
               width="100%"
@@ -49,9 +56,9 @@ export default function Page() {
                   style={{ paddingRight: 10 }}
                 />
               }
-            />
+            /> */}
             <Image
-              source={require("../assets/banner.jpg")}
+              source={require("../../assets/banner.jpg")}
               style={{ width: "100%", height: 300, resizeMode: "contain" }}
             />
             <View style={{ height: 5 }}></View>
@@ -92,29 +99,29 @@ export default function Page() {
               Restaurants Near You
             </Text>
             <View style={{ height: 5 }}></View>
-            {top_offer_items.map((item, index) => {
+            {restaurants.map((res_item, index) => {
               // console.log(item)
               return (
                 <View key={index}>
                   <Image
-                    source={{ uri: item, width: 200, height: 300 }}
+                    source={{ uri: res_item[1], width: 200, height: 300 }}
                     style={styles.top_offers_imgs}
                   />
                   <View style={styles.restaurants_details}>
-                    <Text style={styles.restaurants_title}>
-                      Restaurant Name
-                    </Text>
+                    <Text style={styles.restaurants_title}>{res_item[0]}</Text>
                     <Text style={styles.restaurants_subtitle}>Continental</Text>
                     <Text>20-30 minutes delivery</Text>
                     <TouchableOpacity style={styles.view_menu}>
-                      <Text>View Menu</Text>
+                      <Link href="/restaurant">
+                        <Text>View Menu</Text>
+                      </Link>
                     </TouchableOpacity>
                   </View>
                 </View>
               );
             })}
-            {/* <BlurredBottomNav style={styles.bottom_nav}/> */}
           </View>
+        <View style={{height: 120}}></View>
         </ScrollView>
       </SafeAreaView>
     </NativeBaseProvider>
@@ -125,7 +132,7 @@ const styles = StyleSheet.create({
   container: {
     gap: 5,
     alignItems: "flex-start",
-    paddingTop: 14,
+    paddingTop: 8,
     padding: 8,
     height: "100%",
     width: "100%",
@@ -142,7 +149,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: "10%",
     left: "35%",
-    gap: 10,
+    gap: 5,
   },
   restaurants_title: {
     flexWrap: "wrap",
@@ -161,12 +168,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottom_nav: {
-    position: "absolute",
-    height: 50,
+    position: "sticky",
     width: "100%",
-    bottom: 0, 
+    bottom: 0,
     left: 0,
     right: 0,
-  }
+  },
 });
 
+export default HomeScreen;
