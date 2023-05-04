@@ -56,7 +56,7 @@ function BottomTabNav() {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 100,
+            height: 90,
             borderTopRightRadius: 25,
             borderTopLeftRadius: 25,
             paddingTop: 15,
@@ -79,8 +79,8 @@ function BottomTabNav() {
                 source={require("../assets/icons/home_icon.png")}
                 resizeMode="contain"
                 style={{
-                  width: 30,
-                  height: 30,
+                  width: 25,
+                  height: 25,
                   tintColor: focused ? "#fff" : "gray",
                 }}
               />
@@ -102,8 +102,8 @@ function BottomTabNav() {
                 source={require("../assets/icons/cart_icon.png")}
                 resizeMode="contain"
                 style={{
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
                   tintColor: focused ? "#fff" : "gray",
                 }}
               />
@@ -126,8 +126,8 @@ function BottomTabNav() {
                 source={require("../assets/icons/profile_icon.png")}
                 resizeMode="contain"
                 style={{
-                  width: 30,
-                  height: 30,
+                  width: 25,
+                  height: 25,
                   tintColor: focused ? "#fff" : "gray",
                 }}
               />
