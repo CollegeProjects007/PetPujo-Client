@@ -5,11 +5,12 @@ const Tab = createBottomTabNavigator();
 import { StyleSheet, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Input, NativeBaseProvider, Text, ScrollView } from "native-base";
-import Ionicons from "@expo/vector-icons/Ionicons";
+// import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import BlurredBottomNav from "../components/BlurredBottomNav";
+// import BlurredBottomNav from "../components/BlurredBottomNav";
+import { NavigationContainer } from "@react-navigation/native";
 
 const top_offer_items = [
   "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/top_offers/offer_tile_1.jpg?raw=true",
@@ -31,7 +32,7 @@ const restaurants = [
   ],
 ];
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <NativeBaseProvider>
       <SafeAreaView>
@@ -111,17 +112,20 @@ function HomeScreen() {
                     <Text style={styles.restaurants_title}>{res_item[0]}</Text>
                     <Text style={styles.restaurants_subtitle}>Continental</Text>
                     <Text>20-30 minutes delivery</Text>
-                    <TouchableOpacity style={styles.view_menu}>
-                      <Link href="/restaurant">
-                        <Text>View Menu</Text>
-                      </Link>
+                    <TouchableOpacity
+                      style={styles.view_menu}
+                      onPress={() => navigation.push("Restaurant")}
+                    >
+                      {/* <Link href="/screens/Restaurant"> */}
+                      <Text>View Menu</Text>
+                      {/* </Link> */}
                     </TouchableOpacity>
                   </View>
                 </View>
               );
             })}
           </View>
-        <View style={{height: 120}}></View>
+          <View style={{ height: 120 }}></View>
         </ScrollView>
       </SafeAreaView>
     </NativeBaseProvider>

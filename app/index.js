@@ -6,11 +6,24 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./screens/HomeScreen";
 import CartScreen from "./screens/CartScreen";
 import AccountScreen from "./screens/AccountScreen";
+import RestaurantScreen from "./screens/RestaurantScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function App() {
+  return (
+      <Stack.Navigator
+        initialRouteName="BottomTabNav"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="BottomTabNav" component={BottomTabNav} />
+        <Stack.Screen name="Restaurant" component={RestaurantScreen} />
+      </Stack.Navigator>
+  );
+}
+
+function BottomTabNav() {
   return (
     <Tab.Navigator
       screenOptions={{
