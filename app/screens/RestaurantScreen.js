@@ -76,7 +76,7 @@ export default function RestaurantScreen({ navigation }) {
           <ZStack
             bg="gray.200"
             width={"100%"}
-            height={170}
+            height={"150px"}
             borderTopRadius={45}
             borderBottomRadius={15}
           >
@@ -118,12 +118,12 @@ export default function RestaurantScreen({ navigation }) {
               bg="lime.500"
               borderRadius={15}
               right={5}
+              width={"75px"}
               style={{
-                top: 45,
+                top: 40,
                 justifyContent: "center",
                 alignItems: "center",
-                paddingVertical: 5,
-                paddingHorizontal: 30,
+                paddingVertical: 6,
               }}
             >
               <Text color={"white"} fontSize="md">
@@ -137,7 +137,7 @@ export default function RestaurantScreen({ navigation }) {
               borderRadius={15}
               right={5}
               style={{
-                top: 85,
+                top: 80,
                 justifyContent: "center",
                 alignItems: "center",
                 paddingVertical: 5,
