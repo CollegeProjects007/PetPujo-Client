@@ -106,6 +106,7 @@ export default function RestaurantScreen({ navigation }) {
             <ZStack
               bg="gray.200"
               width={"100%"}
+              // Todo: height not intrinsic
               height={"150px"}
               borderTopRadius={45}
               borderBottomRadius={15}
@@ -229,7 +230,9 @@ export default function RestaurantScreen({ navigation }) {
                           paddingVertical: 5,
                         }}
                       >
-                        <Text color={"orange.500"} fontSize={""}>Add to Cart</Text>
+                        <Text color={"orange.500"} fontSize={"md"}>
+                          Add to Cart
+                        </Text>
                       </TouchableOpacity>
                     </View>
                   </View>
