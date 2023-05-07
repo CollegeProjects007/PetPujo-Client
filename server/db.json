@@ -1,0 +1,7 @@
+{
+  "cart": [{ "id": 1, "title": "json-server", "author": "typicode" }],
+  "restaurants": [
+    { "id": 1, "name": "Shark Tank", "address": "", "inventory": [] }
+  ],
+  "profile": { "name": "typicode" }
+}
