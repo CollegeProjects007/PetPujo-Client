@@ -15,31 +15,32 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function CartScreen({ route, navigation }) {
+  const [address, setAddress] = useState("");
+  const [total, setTotal] = useState(360);
+
   const items = [
     {
-      name: "Chicken Burger",
-      description: "Chicken Burger with extra cheese",
+      name: "Hakka noodles",
       quantity: 1,
       price: 120,
       image:
         "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
     },
     {
-      name: "Chicken Burger",
+      name: "Hyderabadi Biryani",
       quantity: 2,
       price: 120,
-      description: "Chicken Burger with extra cheese",
       image:
-        "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+        "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
     },
   ];
 
-  let [address, setAddress] = useState("");
-
-  if (route.params !== undefined) {
-    console.log("inside cart screen" + route.params.address);
-    setAddress(route.params.address);
-  }
+  useEffect(() => {
+    if (route.params !== undefined) {
+      console.log("inside cart screen" + route.params.address);
+      setAddress(route.params.address);
+    }
+  }, [route.params]);
 
   return (
     <NativeBaseProvider>
@@ -69,7 +70,7 @@ export default function CartScreen({ route, navigation }) {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Map");
+                  // navigation.navigate("Map");
                 }}
               >
                 <Image
@@ -146,7 +147,13 @@ export default function CartScreen({ route, navigation }) {
                       </Box>
                     </Box>
                     <Box style={{ flexDirection: "row", alignItems: "center" }}>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          console.log("plus pressed");
+                          setTotal(total - item.price);
+                          item.quantity--;
+                        }}
+                      >
                         <Image
                           source={require("../../assets/icons/minus_icon.png")}
                           alt="minus icon"
@@ -164,7 +171,13 @@ export default function CartScreen({ route, navigation }) {
                       >
                         1
                       </Text>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          console.log("plus pressed");
+                          setTotal(total + item.price);
+                          item.quantity++;
+                        }}
+                      >
                         <Image
                           source={require("../../assets/icons/plus_icon.png")}
                           alt="plus icon"
@@ -202,7 +215,7 @@ export default function CartScreen({ route, navigation }) {
                   Total
                 </Text>
                 <Text fontFamily={"Sen-Bold"} fontSize={"lg"}>
-                  ₹ 360
+                  ₹ {total}
                 </Text>
               </Box>
             </VStack>
