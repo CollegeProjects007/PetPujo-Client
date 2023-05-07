@@ -80,7 +80,7 @@ export default function CartScreen({ navigation }) {
             alignItems={"center"}
             paddingX={10}
           >
-            <Text fontFamily={"Sen-Bold"} fontSize="2xl">
+            <Text fontFamily={"Sen-Bold"} fontSize={"2xl"}>
               Cart
             </Text>
             <Image
@@ -126,7 +126,7 @@ export default function CartScreen({ navigation }) {
                       }}
                     />
                     <View style={{ marginLeft: 10 }}>
-                      <Text fontFamily={"Sen-Bold"} fontSize="md">
+                      <Text fontFamily={"Sen-Bold"} fontSize={"md"}>
                         {item.name}
                       </Text>
                       <Text fontFamily={"Sen"} fontSize="sm" color="gray.600">
@@ -144,7 +144,7 @@ export default function CartScreen({ navigation }) {
                     </TouchableOpacity>
                     <Text
                       fontFamily={"Sen-Bold"}
-                      fontSize="md"
+                      fontSize={"md"}
                       style={{ marginHorizontal: 10 }}
                     >
                       1
