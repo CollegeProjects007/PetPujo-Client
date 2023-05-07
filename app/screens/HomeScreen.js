@@ -63,7 +63,7 @@ function HomeScreen({ navigation }) {
               style={{ width: "100%", height: 300, resizeMode: "contain" }}
             />
             <View style={{ height: 5 }}></View>
-            <Text fontSize="2xl" bold>
+            <Text fontSize={"2xl"} bold>
               Top Offers
             </Text>
             <View style={{ height: 5 }}></View>
@@ -96,7 +96,7 @@ function HomeScreen({ navigation }) {
               })}
             </ScrollView>
             <View style={{ height: 5 }}></View>
-            <Text fontSize="2xl" bold>
+            <Text fontSize={"2xl"} bold>
               Restaurants Near You
             </Text>
             <View style={{ height: 5 }}></View>
