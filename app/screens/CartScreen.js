@@ -1,3 +1,4 @@
+import React from "react";
 import { View } from "react-native";
 import {
   ZStack,
@@ -16,12 +17,14 @@ export default function CartScreen({ navigation }) {
     {
       name: "Chicken Burger",
       description: "Chicken Burger with extra cheese",
+      quantity: 1,
       price: 120,
       image:
         "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
     },
     {
       name: "Chicken Burger",
+      quantity: 2,
       price: 120,
       description: "Chicken Burger with extra cheese",
       image:
@@ -53,7 +56,11 @@ export default function CartScreen({ navigation }) {
                 style={{ resizeMode: "contain", width: 24, height: 24 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push("Map");
+              }}
+            >
               <Image
                 source={require("../../assets/icons/menu_icon.png")}
                 alt="restaurant image"
@@ -87,7 +94,7 @@ export default function CartScreen({ navigation }) {
           <VStack
             bg="gray.200"
             width={"100%"}
-            height={"300px"}
+            height={"200px"}
             borderRadius={15}
             alignItems={"center"}
             padding={3}
@@ -123,14 +130,14 @@ export default function CartScreen({ navigation }) {
                         {item.name}
                       </Text>
                       <Text fontFamily={"Sen"} fontSize="sm" color="gray.600">
-                        {item.price}
+                        {item.quantity} x {item.price}
                       </Text>
                     </View>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <TouchableOpacity>
                       <Image
-                        source={require("../../assets/icons/timer_icon.png")}
+                        source={require("../../assets/icons/minus_icon.png")}
                         alt="minus icon"
                         style={{ resizeMode: "contain", width: 24, height: 24 }}
                       />
@@ -144,7 +151,7 @@ export default function CartScreen({ navigation }) {
                     </Text>
                     <TouchableOpacity>
                       <Image
-                        source={require("../../assets/icons/timer_icon.png")}
+                        source={require("../../assets/icons/plus_icon.png")}
                         alt="plus icon"
                         style={{ resizeMode: "contain", width: 24, height: 24 }}
                       />
