@@ -11,6 +11,7 @@ import MapScreen from "./screens/MapScreen";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaView } from "react-native-safe-area-context";
+import OrderPlacedScreen from "./screens/OrderplacedScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,6 +43,7 @@ function App() {
       <Stack.Screen name="BottomTabNav" component={BottomTabNav} />
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Map" component={MapScreen} />
+      <Stack.Screen name="OrderPlaced" component={OrderPlacedScreen} />
     </Stack.Navigator>
   );
 }
@@ -91,6 +93,7 @@ function BottomTabNav() {
       />
       <Tab.Screen
         name="Cart"
+        initialParams={{ address: "Not Set" }}
         component={CartScreen}
         options={{
           tabBarLabel: "  Cart",
