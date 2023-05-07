@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View, SafeAreaView, StatusBar } from "react-native";
 import * as Location from "expo-location";
 import {
@@ -30,6 +30,7 @@ export default function MapScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
+  const [markerCoord, setMarkerCoord] = useState({ latitude: 0, longitude: 0 });
 
   useEffect(() => {
     (async () => {
@@ -68,8 +69,11 @@ export default function MapScreen({ navigation }) {
                 const response = await fetchAddress(latitude, longitude);
                 console.log("onpress: " + response);
                 setAddress(response);
+                setMarkerCoord({ latitude, longitude });
               }}
-            />
+            >
+              <Marker coordinate={markerCoord} description={address} />
+            </MapView>
             <Stack width={"100%"} padding={"3"} bottom={"10px"} space={3}>
               <Input
                 size="md"
@@ -84,7 +88,7 @@ export default function MapScreen({ navigation }) {
                 rounded={"xl"}
                 colorScheme={"orange"}
                 onPress={() => {
-                  navigation.goBack();
+                  navigation.navigate("Cart", { address: address });
                 }}
               >
                 <Text fontSize={"lg"} color={"white"}>
