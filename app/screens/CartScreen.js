@@ -283,7 +283,7 @@ export default function CartScreen({ route, navigation }) {
               rounded={"xl"}
               onPress={() => {
                 console.log("Checkout");
-                navigation.push("OrderPlaced");
+                navigation.navigate("OrderPlaced");
               }}
             >
               <HStack
