@@ -37,17 +37,11 @@ export default function OrderPlacedScreen({ navigation }) {
           bg={"orange.500"}
           rounded={"xl"}
           onPress={() => {
-            console.log("Checkout");
-            navigation.push("OrderPlaced");
+            console.log("Go to home");
+            navigation.navigate("Explore");
           }}
         >
-          <Text
-            color={"white"}
-            fontSize={"lg"}
-            onPress={() => {
-              navigation.navigate("Explore");
-            }}
-          >
+          <Text color={"white"} fontSize={"lg"}>
             Go to Home
           </Text>
         </Button>
