@@ -42,7 +42,6 @@ export default function MapScreen({ navigation }) {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-      setAddress(location.coords.latitude, location.coords.longitude);
     })();
   }, []);
 
@@ -73,7 +72,7 @@ export default function MapScreen({ navigation }) {
                 setMarkerCoord({ latitude, longitude });
               }}
             >
-              <Marker coordinate={markerCoord} description={address} />
+              <Marker coordinate={markerCoord} />
             </MapView>
             <Stack width={"100%"} padding={"3"} bottom={"10px"} space={3}>
               <Input
