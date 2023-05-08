@@ -192,7 +192,7 @@ export default function RestaurantScreen({ navigation }) {
                     borderBottomWidth: 1,
                     borderBottomColor: "#eee",
                     width: "100%",
-                    height: 120,
+                    height: 150,
                   }}
                 >
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -201,12 +201,12 @@ export default function RestaurantScreen({ navigation }) {
                       alt="item image"
                       style={{
                         resizeMode: "contain",
-                        width: 100,
-                        height: 120,
+                        width: 120,
+                        height: 150,
                         borderRadius: 10,
                       }}
                     />
-                    <View style={{ marginLeft: 10 }}>
+                    <View style={{ marginLeft: 10, gap: 5 }}>
                       <Text fontFamily={"Sen-Bold"} fontSize="lg">
                         {item.name}
                       </Text>
@@ -223,14 +223,15 @@ export default function RestaurantScreen({ navigation }) {
                       </Text>
                       <TouchableOpacity
                         style={{
-                          // backgroundColor: "orange",
-                          // justifyContent: "center",
-                          // alignItems: "center",
-                          borderRadius: 5,
-                          paddingVertical: 5,
+                          backgroundColor: "orange",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 10,
+                          paddingVertical: 10,
+                          width: 130,
                         }}
                       >
-                        <Text color={"orange.500"} fontSize={"md"}>
+                        <Text color={"black"} fontSize={"md"}>
                           Add to Cart
                         </Text>
                       </TouchableOpacity>
