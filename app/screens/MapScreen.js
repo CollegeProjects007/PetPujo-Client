@@ -30,7 +30,10 @@ export default function MapScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
-  const [markerCoord, setMarkerCoord] = useState({ latitude: 0, longitude: 0 });
+  const [markerCoord, setMarkerCoord] = useState({
+    latitude: 76.2506,
+    longitude: 100.114,
+  });
 
   useEffect(() => {
     (async () => {

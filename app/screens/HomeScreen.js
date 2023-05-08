@@ -28,7 +28,7 @@ const restaurants = [
   ],
   [
     "Arshalan",
-    "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+    "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
   ],
 ];
 
@@ -62,15 +62,14 @@ function HomeScreen({ navigation }) {
               source={require("../../assets/banner.jpg")}
               style={{ width: "100%", height: 300, resizeMode: "contain" }}
             />
-            <View style={{ height: 5 }}></View>
             <Text fontSize={"2xl"} bold>
               Top Offers
             </Text>
-            <View style={{ height: 5 }}></View>
+            <View style={{ height: 2 }}></View>
             <ScrollView
               style={styles.top_offers_view}
               horizontal={true}
-              maxHeight={160}
+              maxHeight={150}
             >
               {/* {top_offer_items.map((item, index) => {
               return (
@@ -95,11 +94,11 @@ function HomeScreen({ navigation }) {
                 );
               })}
             </ScrollView>
-            <View style={{ height: 5 }}></View>
+            <View style={{ height: 2 }}></View>
             <Text fontSize={"2xl"} bold>
               Restaurants Near You
             </Text>
-            <View style={{ height: 5 }}></View>
+            <View style={{ height: 2 }}></View>
             {restaurants.map((res_item, index) => {
               // console.log(item)
               return (
@@ -144,10 +143,11 @@ const styles = StyleSheet.create({
   },
   top_offers_view: {},
   top_offers_imgs: {
-    resizeMode: "contain",
+    resizeMode: "cover",
     width: 120,
     height: 150,
     marginRight: 5,
+    borderRadius: 10,
   },
   restaurants_details: {
     position: "absolute",
