@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, View, SafeAreaView, StatusBar } from "react-native";
 import * as Location from "expo-location";
 import {
@@ -61,6 +61,7 @@ export default function MapScreen({ navigation }) {
           <ZStack style={styles.zstack}>
             <MapView
               style={styles.map}
+              provider={PROVIDER_GOOGLE}
               showsUserLocation
               //onpress object structure: {"action": "press", "coordinate": {"latitude": 22.56810640171351, "longitude": 88.3549066632986}, "position": {"x": 401, "y": 1062}}
               onPress={async (e) => {
