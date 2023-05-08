@@ -4,13 +4,20 @@ const Tab = createBottomTabNavigator();
 
 import { StyleSheet, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Input, NativeBaseProvider, Text, ScrollView } from "native-base";
+import {
+  Input,
+  HStack,
+  NativeBaseProvider,
+  Text,
+  ScrollView,
+} from "native-base";
 // import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 // import BlurredBottomNav from "../components/BlurredBottomNav";
 import { NavigationContainer } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const top_offer_items = [
   "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/top_offers/offer_tile_1.jpg?raw=true",
@@ -58,6 +65,22 @@ function HomeScreen({ navigation }) {
                 />
               }
             /> */}
+            {/*------------ Card bar ------------ */}
+            <HStack
+              bg="gray.200"
+              width={"100%"}
+              height={"60px"}
+              borderTopRadius={45}
+              borderBottomRadius={15}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              paddingX={10}
+            >
+              <Text fontFamily={"Sen"} fontSize={"2xl"}>
+                Search
+              </Text>
+              <Ionicons name="search" size={24} color="black" />
+            </HStack>
             <Image
               source={require("../../assets/banner.jpg")}
               style={{ width: "100%", height: 300, resizeMode: "contain" }}
