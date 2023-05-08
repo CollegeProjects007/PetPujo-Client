@@ -120,8 +120,6 @@ export default function CartScreen({ route, navigation }) {
                       justifyContent: "space-between",
                       alignItems: "center",
                       paddingVertical: 10,
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#eee",
                       width: "100%",
                       height: 60,
                     }}
@@ -131,7 +129,7 @@ export default function CartScreen({ route, navigation }) {
                         source={{ uri: item.image }}
                         alt="item image"
                         style={{
-                          resizeMode: "contain",
+                          resizeMode: "cover",
                           width: 50,
                           height: 50,
                           borderRadius: 10,
