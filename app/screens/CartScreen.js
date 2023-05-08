@@ -286,9 +286,14 @@ export default function CartScreen({ route, navigation }) {
                 navigation.push("OrderPlaced");
               }}
             >
-              <HStack flexDirection={"row"} space={2}>
+              <HStack
+                flexDirection={"row"}
+                space={2}
+                justifyContent={"center"}
+                alignItems={"center"}
+              >
                 <Ionicons name="fast-food-outline" size={28} color="white" />
-                <Text color={"white"} fontSize={"lg"} fontFamily={"Sen"}>
+                <Text color={"white"} fontSize={"xl"} fontFamily={"Sen"}>
                   Place Order
                 </Text>
               </HStack>
