@@ -12,6 +12,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OrderPlacedScreen from "./screens/OrderplacedScreen";
+import FlipperAsyncStorage from "rn-flipper-async-storage-advanced";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -36,11 +37,12 @@ function App() {
   }
   return (
     <Stack.Navigator
-      initialRouteName="BottomTabNav"
+      initialRouteName="MainScreen"
       screenOptions={{ headerShown: false }}
       onLayoutRootView={onLayoutRootView}
     >
-      <Stack.Screen name="BottomTabNav" component={BottomTabNav} />
+      <FlipperAsyncStorage />
+      <Stack.Screen name="MainScreen" component={MainScreen} />
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Map" component={MapScreen} />
       <Stack.Screen name="OrderPlaced" component={OrderPlacedScreen} />
@@ -48,7 +50,7 @@ function App() {
   );
 }
 
-function BottomTabNav() {
+function MainScreen() {
   return (
     <Tab.Navigator
       screenOptions={{
