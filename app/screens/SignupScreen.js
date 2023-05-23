@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { SafeAreaView, View, TouchableOpacity } from "react-native";
+import { SafeAreaView, View, TouchableOpacity, Alert } from "react-native";
 
 import {
   NativeBaseProvider,
@@ -12,6 +12,7 @@ import {
   Image,
 } from "native-base";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { signUp } from "../apis/auth/auth.js";
 
 const banner = "../../assets/icons/logo_transparent.png";
 
@@ -170,7 +171,19 @@ const LoginScreen = ({ navigation }) => {
                 rounded={"xl"}
                 colorScheme={"orange"}
                 onPress={() => {
-                  navigation.navigate("MainScreen");
+                  //   navigation.navigate("MainScreen");
+                  signUp(name, location, emailAddress, password)
+                    .then((response) => {
+                      if (response === "success") {
+                        navigation.navigate("MainScreen");
+                      } else {
+                        console.log("Invalid credentials");
+                        Alert.alert("Invalid credentials");
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
                 }}
                 leftIcon={
                   <Ionicons name="log-in-outline" size={28} color="white" />

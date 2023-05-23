@@ -3,8 +3,9 @@ import { View } from "react-native";
 import { HStack, VStack, Text, Button, NativeBaseProvider } from "native-base";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { signOut } from "../apis/auth/auth.js";
 
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
   return (
     <NativeBaseProvider>
       <SafeAreaView>
@@ -120,6 +121,9 @@ export default function AccountScreen() {
             leftIcon={
               <Ionicons name="log-out-outline" size={24} color="black" />
             }
+            onPress={() => {
+              signOut().then(() => navigation.navigate("LoginScreen"));
+            }}
           >
             <Text fontFamily={"Sen"} fontSize={"xl"}>
               Logout

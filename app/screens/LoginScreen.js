@@ -12,12 +12,14 @@ import {
   Image,
 } from "native-base";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { signIn } from "../apis/auth/auth.js";
 
 const banner = "../../assets/icons/logo_transparent.png";
 
 const LoginScreen = ({ navigation }) => {
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
+  // for debugging purposes email and password is set
+  const [emailAddress, setEmailAddress] = useState("user@gmail.com");
+  const [password, setPassword] = useState("userpassword");
   const [show, setShow] = React.useState(false);
 
   const handleClick = () => setShow(!show);
@@ -121,8 +123,19 @@ const LoginScreen = ({ navigation }) => {
               <Button
                 rounded={"xl"}
                 colorScheme={"orange"}
-                onPress={() => {
-                  navigation.navigate("MainScreen");
+                onPress={async () => {
+                  //   navigation.navigate("MainScreen");
+                  signIn(emailAddress, password)
+                    .then((response) => {
+                      if (response === "success") {
+                        navigation.navigate("MainScreen");
+                      } else {
+                        console.log("Invalid credentials");
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
                 }}
                 leftIcon={
                   <Ionicons name="log-in-outline" size={28} color="white" />
