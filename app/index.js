@@ -13,6 +13,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OrderPlacedScreen from "./screens/OrderplacedScreen";
 import FlipperAsyncStorage from "rn-flipper-async-storage-advanced";
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -37,11 +39,12 @@ function App() {
   }
   return (
     <Stack.Navigator
-      initialRouteName="MainScreen"
+      initialRouteName="LoginScreen"
       screenOptions={{ headerShown: false }}
       onLayoutRootView={onLayoutRootView}
     >
-      <FlipperAsyncStorage />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="SignupScreen" component={SignupScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} />
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Map" component={MapScreen} />
