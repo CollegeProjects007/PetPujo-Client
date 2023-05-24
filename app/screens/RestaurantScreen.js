@@ -1,6 +1,7 @@
-import { View } from "react-native";
+import React from "react";
+// import { View } from "react-native";
 import {
-  ZStack,
+  View,
   Box,
   Image,
   NativeBaseProvider,
@@ -11,62 +12,79 @@ import {
 } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { set } from "react-native-reanimated";
+import { useEffect, useState } from "react";
+import { viewMenu } from "../apis/inventory/view-menu";
 
 export default function RestaurantScreen({ navigation }) {
+  const [items, setItems] = useState([]);
+
   const restaurantDetails = {
-    name: "Shark Tank",
-    type: "Continental, Fast Food",
+    name: "Indian Dishes",
+    type: "Portion: Tummy Fillers",
     rating: 4.3,
     reviews: 1200,
     address: "Kudghat, Kolkata",
-    deliveryTime: "20 - 30 mins",
-    distance: "2.5 km",
+    deliveryTime: "15 - 25 mins",
+    distance: "2.9 km",
   };
 
-  const items = [
-    {
-      name: "Haka Noodles",
-      description: "Chicken Burger with extra cheese",
-      price: 120,
-      image:
-        "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
-    },
-    {
-      name: "Hyderabadi Biryani",
-      price: 120,
-      description: "Chicken Burger with extra cheese",
-      image:
-        "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
-    },
-    {
-      name: "Kolkata Biryani",
-      price: 120,
-      description: "Chicken Burger with extra cheese",
-      image:
-        "https://i.pinimg.com/564x/e5/d7/5f/e5d75f16c484d44111bde714b21841b1.jpg",
-    },
-    {
-      name: "Friedrice Chillichicken combo",
-      price: 120,
-      description: "Chicken Burger with extra cheese",
-      image:
-        "https://i.pinimg.com/564x/6a/8b/b3/6a8bb378607b544994582707e55b2589.jpg",
-    },
-    {
-      name: "Handi Mutton",
-      price: 120,
-      description: "Chicken Burger with extra cheese",
-      image:
-        "https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/aydszskkuu1cewrwymsp",
-    },
-    {
-      name: "Chicken Burger",
-      price: 120,
-      description: "Chicken Burger with extra cheese",
-      image:
-        "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
-    },
-  ];
+  useEffect(() => {
+    // fetch items from backend
+    viewMenu()
+      .then((data) => {
+        console.log(data.data.data);
+        setItems(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // items = [
+  //   {
+  //     name: "Haka Noodles",
+  //     description: "Chicken Burger with extra cheese",
+  //     price: 120,
+  //     image:
+  //       "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+  //   },
+  //   {
+  //     name: "Hyderabadi Biryani",
+  //     price: 120,
+  //     description: "Chicken Burger with extra cheese",
+  //     image:
+  //       "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
+  //   },
+  //   {
+  //     name: "Kolkata Biryani",
+  //     price: 120,
+  //     description: "Chicken Burger with extra cheese",
+  //     image:
+  //       "https://i.pinimg.com/564x/e5/d7/5f/e5d75f16c484d44111bde714b21841b1.jpg",
+  //   },
+  //   {
+  //     name: "Friedrice Chillichicken combo",
+  //     price: 120,
+  //     description: "Chicken Burger with extra cheese",
+  //     image:
+  //       "https://i.pinimg.com/564x/6a/8b/b3/6a8bb378607b544994582707e55b2589.jpg",
+  //   },
+  //   {
+  //     name: "Handi Mutton",
+  //     price: 120,
+  //     description: "Chicken Burger with extra cheese",
+  //     image:
+  //       "https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/aydszskkuu1cewrwymsp",
+  //   },
+  //   {
+  //     name: "Chicken Burger",
+  //     price: 120,
+  //     description: "Chicken Burger with extra cheese",
+  //     image:
+  //       "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+  //   },
+  // ];
 
   return (
     <NativeBaseProvider>
@@ -103,15 +121,23 @@ export default function RestaurantScreen({ navigation }) {
             </HStack>
             {/*------------ Restaurant Info ------------ */}
             {/* <ZStack> */}
-            <ZStack
+            <View
               bg="gray.200"
               width={"100%"}
               // Todo: height not intrinsic
-              height={"150px"}
               borderTopRadius={45}
               borderBottomRadius={15}
+              flexDirection={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
             >
-              <VStack top={25} left={5}>
+              <View
+                top={25}
+                left={5}
+                flexDirection={"column"}
+                maxWidth={"70%"}
+                minHeight={"170px"}
+              >
                 {/* Name */}
                 <Text fontFamily={"Sen-Bold"} fontSize="3xl">
                   {restaurantDetails.name}
@@ -142,44 +168,52 @@ export default function RestaurantScreen({ navigation }) {
                     {restaurantDetails.distance} away
                   </Text>
                 </HStack>
-              </VStack>
+              </View>
 
-              {/* Ratting */}
-              <Box
-                bg="lime.500"
-                borderRadius={15}
-                right={5}
-                width={"75px"}
-                style={{
-                  top: 40,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingVertical: 6,
-                }}
+              <View
+                flexDirection={"column"}
+                maxWidth={"35%"}
+                gap={"10px"}
+                justifyContent={"center"}
+                alignItems={"center"}
               >
-                <Text color={"white"} fontSize="md">
-                  {restaurantDetails.rating}
-                </Text>
-              </Box>
+                {/* Ratting */}
+                <Box
+                  bg="lime.500"
+                  borderRadius={15}
+                  right={5}
+                  width={"75px"}
+                  style={{
+                    // top: 40,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingVertical: 6,
+                  }}
+                >
+                  <Text color={"white"} fontSize="md">
+                    {restaurantDetails.rating}
+                  </Text>
+                </Box>
 
-              {/* Reviews */}
-              <Box
-                bg="white"
-                borderRadius={15}
-                right={5}
-                style={{
-                  top: 80,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingVertical: 5,
-                  paddingHorizontal: 15,
-                }}
-              >
-                <Text color={"black"} fontSize="sm" textAlign="center">
-                  {restaurantDetails.reviews}+{"\n"}Reviews
-                </Text>
-              </Box>
-            </ZStack>
+                {/* Reviews */}
+                <Box
+                  bg="white"
+                  borderRadius={15}
+                  right={5}
+                  style={{
+                    // top: 80,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingVertical: 5,
+                    paddingHorizontal: 15,
+                  }}
+                >
+                  <Text color={"black"} fontSize="sm" textAlign="center">
+                    {restaurantDetails.reviews}+{"\n"}Reviews
+                  </Text>
+                </Box>
+              </View>
+            </View>
             {/* -----------Items---------- */}
             {items.map((item, index) => {
               return (
@@ -192,17 +226,17 @@ export default function RestaurantScreen({ navigation }) {
                     borderBottomWidth: 1,
                     borderBottomColor: "#eee",
                     width: "100%",
-                    height: 150,
+                    height: 185,
                   }}
                 >
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image
-                      source={{ uri: item.image }}
+                      source={{ uri: item.imagelink }}
                       alt="item image"
                       style={{
                         resizeMode: "contain",
-                        width: 120,
-                        height: 150,
+                        width: 130,
+                        height: 180,
                         borderRadius: 10,
                       }}
                     />
@@ -214,7 +248,8 @@ export default function RestaurantScreen({ navigation }) {
                         fontFamily={"Sen"}
                         fontSize="sm"
                         color="gray.600"
-                        maxHeight={"30px"}
+                        maxHeight={"60px"}
+                        maxWidth={"250px"}
                       >
                         {item.description}
                       </Text>
