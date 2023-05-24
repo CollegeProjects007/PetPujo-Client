@@ -28,14 +28,10 @@ const top_offer_items = [
   "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/top_offers/offer_tile_3.jpg?raw=true",
 ];
 
-const restaurants = [
+const categories = [
   [
-    "Shark Tank",
-    "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
-  ],
-  [
-    "Arshalan",
-    "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
+    "Curated Meals",
+    "https://www.holidify.com/images/cmsuploads/compressed/shutterstock_649541308_20191010160155.png",
   ],
 ];
 
@@ -81,10 +77,16 @@ function HomeScreen({ navigation }) {
               </Text>
               <Ionicons name="search" size={24} color="black" />
             </HStack>
-            <Image
-              source={require("../../assets/banner.jpg")}
-              style={{ width: "100%", height: 300, resizeMode: "contain" }}
-            />
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Restaurant")}
+              style={{ width: "100%", height: 300 }}
+            >
+              <Image
+                source={require("../../assets/banner.jpg")}
+                style={{ width: "100%", height: 300, resizeMode: "contain" }}
+              />
+            </TouchableOpacity>
             <Text fontSize={"2xl"} bold>
               Top Offers
             </Text>
@@ -104,36 +106,45 @@ function HomeScreen({ navigation }) {
                 </View>
               );
             })} */}
+
               {top_offer_items.map((item, index) => {
                 // console.log(item)
                 return (
-                  <View key={index}>
-                    {/* <Image source={require({item})} /> */}
-                    <Image
-                      source={{ uri: item, width: 200, height: 300 }}
-                      style={styles.top_offers_imgs}
-                    />
-                  </View>
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => navigation.navigate("Restaurant")}
+                  >
+                    <View>
+                      {/* <Image source={require({item})} /> */}
+                      <Image
+                        source={{ uri: item, width: 200, height: 300 }}
+                        style={styles.top_offers_imgs}
+                      />
+                    </View>
+                  </TouchableOpacity>
                 );
               })}
             </ScrollView>
+
             <View style={{ height: 2 }}></View>
             <Text fontSize={"2xl"} bold>
-              Restaurants Near You
+              Categories
             </Text>
             <View style={{ height: 2 }}></View>
-            {restaurants.map((res_item, index) => {
+            {categories.map((res_item, index) => {
               // console.log(item)
               return (
                 <View key={index}>
                   <Image
-                    source={{ uri: res_item[1], width: 200, height: 300 }}
-                    style={styles.top_offers_imgs}
+                    source={{ uri: res_item[1] }}
+                    style={styles.restaurants_imgs}
                   />
                   <View style={styles.restaurants_details}>
                     <Text style={styles.restaurants_title}>{res_item[0]}</Text>
-                    <Text style={styles.restaurants_subtitle}>Continental</Text>
-                    <Text>20-30 minutes delivery</Text>
+                    <Text style={styles.restaurants_subtitle}>
+                      Portion: Tummy Filler
+                    </Text>
+                    <Text>15-25 minutes delivery</Text>
                     <TouchableOpacity
                       style={styles.view_menu}
                       onPress={() => navigation.push("Restaurant")}
@@ -157,7 +168,6 @@ function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     gap: 5,
-    alignItems: "flex-start",
     paddingTop: 8,
     padding: 8,
     height: "100%",
@@ -172,10 +182,17 @@ const styles = StyleSheet.create({
     marginRight: 5,
     borderRadius: 10,
   },
+  restaurants_imgs: {
+    resizeMode: "cover",
+    width: "50%",
+    height: 150,
+    marginRight: 5,
+    borderRadius: 10,
+  },
   restaurants_details: {
     position: "absolute",
     top: "10%",
-    left: "35%",
+    left: "53%",
     gap: 5,
   },
   restaurants_title: {

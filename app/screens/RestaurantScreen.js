@@ -20,7 +20,7 @@ export default function RestaurantScreen({ navigation }) {
   const [items, setItems] = useState([]);
 
   const restaurantDetails = {
-    name: "Indian Dishes",
+    name: "Curated Meals",
     type: "Portion: Tummy Fillers",
     rating: 4.3,
     reviews: 1200,
@@ -136,7 +136,7 @@ export default function RestaurantScreen({ navigation }) {
                 left={5}
                 flexDirection={"column"}
                 maxWidth={"70%"}
-                minHeight={"170px"}
+                minHeight={"165px"}
               >
                 {/* Name */}
                 <Text fontFamily={"Sen-Bold"} fontSize="3xl">
