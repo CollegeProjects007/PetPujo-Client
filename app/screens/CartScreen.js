@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View as Box } from "react-native";
 import {
   ZStack,
+  View,
   Button,
   Image,
   NativeBaseProvider,
@@ -13,46 +13,75 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { addToCart } from "../apis/cart/add-to-cart";
+import { removeFromCart } from "../apis/cart/remove-from-cart";
+import { viewCart } from "../apis/cart/view-cart";
 
 export default function CartScreen({ route, navigation }) {
   const [address, setAddress] = useState("");
-  const [total, setTotal] = useState(360);
+  const [total, setTotal] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
 
-  const items = [
-    {
-      name: "Hakka noodles",
-      quantity: 1,
-      price: 120,
-      image:
-        "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
-    },
-    {
-      name: "Hyderabadi Biryani",
-      quantity: 2,
-      price: 120,
-      image:
-        "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
-    },
-  ];
+  // const items = [
+  //   {
+  //     name: "Hakka noodles",
+  //     quantity: 1,
+  //     price: 120,
+  //     imagelink:
+  //       "https://github.com/CollegeProjects007/PetPujo/blob/master/assets/restaurants/restaurant1.png?raw=true",
+  //   },
+  //   {
+  //     name: "Hyderabadi Biryani",
+  //     quantity: 2,
+  //     price: 120,
+  //     imagelink:
+  //       "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
+  //   },
+  //   {
+  //     name: "Hyderabadi Biryani",
+  //     quantity: 2,
+  //     price: 120,
+  //     imagelink:
+  //       "https://i.pinimg.com/564x/7a/e8/e7/7ae8e7b8b0952df598b1a56b875a2f86.jpg",
+  //   },
+  // ];
 
   useEffect(() => {
     if (route.params !== undefined) {
       console.log("inside cart screen" + route.params.address);
       setAddress(route.params.address);
     }
+
+    // fetch items from backend
+    viewCart()
+      .then((data) => {
+        console.log(data.data.data);
+        setCartItems(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // calculate total
+    let total = 0;
+    cartItems.forEach((item) => {
+      total += item.quantity * item.price;
+    });
+    setTotal(total);
   }, [route.params]);
 
   return (
     <NativeBaseProvider>
       <SafeAreaView>
         <ScrollView>
-          <Box
+          <View
             style={{
               flex: 1,
               justifyContent: "flex-start",
               alignItems: "flex-start",
               padding: 15,
               gap: 15,
+              paddingBottom: 130,
             }}
           >
             {/*------------ Back button ------------ */}
@@ -103,96 +132,122 @@ export default function CartScreen({ route, navigation }) {
               />
             </HStack>
             {/* -----------Items---------- */}
-            <VStack
+            <View
               bg="gray.200"
               width={"100%"}
-              height={"150px"}
               borderRadius={15}
               alignItems={"center"}
-              padding={3}
+              padding={5}
             >
-              {items.map((item, index) => {
-                return (
-                  <Box
-                    key={index}
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      paddingVertical: 10,
-                      width: "100%",
-                      height: 60,
-                    }}
-                  >
-                    <Box style={{ flexDirection: "row", alignItems: "center" }}>
-                      <Image
-                        source={{ uri: item.image }}
-                        alt="item image"
-                        style={{
-                          resizeMode: "cover",
-                          width: 50,
-                          height: 50,
-                          borderRadius: 10,
-                        }}
-                      />
-                      <Box style={{ marginLeft: 10 }}>
-                        <Text fontFamily={"Sen-Bold"} fontSize={"md"}>
-                          {item.name}
-                        </Text>
-                        <Text fontFamily={"Sen"} fontSize="sm" color="gray.600">
-                          {item.quantity} x {item.price}
-                        </Text>
-                      </Box>
-                    </Box>
-                    <Box style={{ flexDirection: "row", alignItems: "center" }}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          console.log("plus pressed");
-                          setTotal(total - item.price);
-                          item.quantity--;
-                        }}
+              {cartItems.length === 0 ? (
+                <Text fontFamily={"Sen"} fontSize={"md"} color={"gray.600"}>
+                  Your cart is empty
+                </Text>
+              ) : (
+                cartItems.map((item, index) => {
+                  return (
+                    <View
+                      key={index}
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        paddingVertical: 10,
+                        width: "100%",
+                      }}
+                    >
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
                       >
                         <Image
-                          source={require("../../assets/icons/minus_icon.png")}
-                          alt="minus icon"
+                          source={{ uri: item.imagelink }}
+                          alt="item image"
                           style={{
-                            resizeMode: "contain",
-                            width: 24,
-                            height: 24,
+                            resizeMode: "cover",
+                            width: 50,
+                            height: 50,
+                            borderRadius: 10,
                           }}
                         />
-                      </TouchableOpacity>
-                      <Text
-                        fontFamily={"Sen-Bold"}
-                        fontSize={"md"}
-                        style={{ marginHorizontal: 10 }}
+                        <View style={{ marginLeft: 10 }}>
+                          <Text fontFamily={"Sen-Bold"} fontSize={"md"}>
+                            {item.name}
+                          </Text>
+                          <Text
+                            fontFamily={"Sen"}
+                            fontSize="sm"
+                            color="gray.600"
+                          >
+                            {item.quantity} x {item.price}
+                          </Text>
+                        </View>
+                      </View>
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
                       >
-                        1
-                      </Text>
-                      <TouchableOpacity
-                        onPress={() => {
-                          console.log("plus pressed");
-                          setTotal(total + item.price);
-                          item.quantity++;
-                        }}
-                      >
-                        <Image
-                          source={require("../../assets/icons/plus_icon.png")}
-                          alt="plus icon"
-                          style={{
-                            resizeMode: "contain",
-                            width: 24,
-                            height: 24,
+                        <TouchableOpacity
+                          onPress={() => {
+                            console.log("minus pressed");
+                            removeFromCart(item._id)
+                              .then((data) => {
+                                console.log(data.data.data);
+                                this.setState({ message_body: "add to cart" });
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                            setTotal(total - item.price);
                           }}
-                        />
-                      </TouchableOpacity>
-                    </Box>
-                  </Box>
-                );
-              })}
-            </VStack>
+                        >
+                          <Image
+                            source={require("../../assets/icons/minus_icon.png")}
+                            alt="minus icon"
+                            style={{
+                              resizeMode: "contain",
+                              width: 24,
+                              height: 24,
+                            }}
+                          />
+                        </TouchableOpacity>
+                        <Text
+                          fontFamily={"Sen-Bold"}
+                          fontSize={"md"}
+                          style={{ marginHorizontal: 10 }}
+                        >
+                          {item.quantity}
+                        </Text>
+                        <TouchableOpacity
+                          onPress={() => {
+                            console.log("plus pressed");
+                            addToCart(item._id)
+                              .then((data) => {
+                                console.log(data.data.data);
+                                this.setState({ message_body: "add to cart" }); // will cause to re-render
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                            setTotal(total + item.price);
+                          }}
+                        >
+                          <Image
+                            source={require("../../assets/icons/plus_icon.png")}
+                            alt="plus icon"
+                            style={{
+                              resizeMode: "contain",
+                              width: 24,
+                              height: 24,
+                            }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  );
+                })
+              )}
+            </View>
             {/* -----------Total---------- */}
-            <VStack
+            <View
               bg="gray.200"
               width={"100%"}
               height={"50px"}
@@ -200,7 +255,7 @@ export default function CartScreen({ route, navigation }) {
               alignItems={"center"}
               padding={3}
             >
-              <Box
+              <View
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-between",
@@ -215,8 +270,8 @@ export default function CartScreen({ route, navigation }) {
                 <Text fontFamily={"Sen-Bold"} fontSize={"lg"}>
                   ₹ {total}
                 </Text>
-              </Box>
-            </VStack>
+              </View>
+            </View>
             {/* -----------Delivery Address---------- */}
             <HStack
               bg="gray.200"
@@ -226,7 +281,7 @@ export default function CartScreen({ route, navigation }) {
               alignItems={"flex-start"}
               padding={3}
             >
-              <Box
+              <View
                 style={{
                   flexDirection: "column",
                   justifyContent: "flex-start",
@@ -240,7 +295,7 @@ export default function CartScreen({ route, navigation }) {
                 <Text fontFamily={"Sen-Bold"} fontSize={"md"}>
                   {address}
                 </Text>
-              </Box>
+              </View>
               <Button
                 padding={2}
                 bg={"orange.500"}
@@ -296,7 +351,7 @@ export default function CartScreen({ route, navigation }) {
                 </Text>
               </HStack>
             </Button>
-          </Box>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </NativeBaseProvider>
