@@ -16,6 +16,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { addToCart } from "../apis/cart/add-to-cart";
 import { removeFromCart } from "../apis/cart/remove-from-cart";
 import { viewCart } from "../apis/cart/view-cart";
+import { placeOrder } from "../apis/orders/place-order";
 
 export default function CartScreen({ route, navigation }) {
   const [address, setAddress] = useState("");
@@ -336,7 +337,14 @@ export default function CartScreen({ route, navigation }) {
               rounded={"xl"}
               onPress={() => {
                 console.log("Checkout");
-                navigation.navigate("OrderPlaced");
+                placeOrder()
+                  .then((data) => {
+                    console.log(data.data.data);
+                    navigation.navigate("OrderPlaced");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               }}
             >
               <HStack

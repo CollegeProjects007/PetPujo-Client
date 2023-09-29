@@ -15,6 +15,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { set } from "react-native-reanimated";
 import { useEffect, useState } from "react";
 import { viewMenu } from "../apis/inventory/view-menu";
+import { addToCart } from "../apis/cart/add-to-cart";
 
 export default function RestaurantScreen({ navigation }) {
   const [items, setItems] = useState([]);
@@ -264,6 +265,15 @@ export default function RestaurantScreen({ navigation }) {
                           borderRadius: 10,
                           paddingVertical: 10,
                           width: 130,
+                        }}
+                        onPress={() => {
+                          addToCart(item._id)
+                            .then(() => {
+                              console.log("Item added to cart");
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
                         }}
                       >
                         <Text color={"black"} fontSize={"md"}>

@@ -41,7 +41,7 @@ export default function AccountScreen({ navigation }) {
             marginBottom={5}
             bg="gray.200"
             width={"100%"}
-            height={"280px"}
+            height={"340px"}
             borderRadius={15}
             justifyContent={"flex-start"}
             alignItems={"flex-start"}
@@ -69,6 +69,25 @@ export default function AccountScreen({ navigation }) {
               leftIcon={
                 <Ionicons name="list-outline" size={24} color="black" />
               }
+              onPress={() => {
+                navigation.navigate("CurrentOrders");
+              }}
+            >
+              <Text fontFamily={"Sen"} fontSize={"xl"}>
+                Current Orders
+              </Text>
+            </Button>
+            <Button
+              variant={"ghost"}
+              width={"100%"}
+              colorScheme={"gray"}
+              justifyContent={"flex-start"}
+              leftIcon={
+                <Ionicons name="list-outline" size={24} color="black" />
+              }
+              onPress={() => {
+                navigation.navigate("PastOrders");
+              }}
             >
               <Text fontFamily={"Sen"} fontSize={"xl"}>
                 Past Orders

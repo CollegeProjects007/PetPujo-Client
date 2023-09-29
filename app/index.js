@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useCallback } from "react";
 import { Image } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,6 +16,9 @@ import OrderPlacedScreen from "./screens/OrderplacedScreen";
 import FlipperAsyncStorage from "rn-flipper-async-storage-advanced";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
+import { getUserId } from "./utils/storage.js";
+import CurrentOrdersScreen from "./screens/CurrentOrdersScreen";
+import PastOrdersScreen from "./screens/PastOrdersScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,6 +26,17 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function App() {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    getUserId().then((id) => {
+      console.log(id);
+      if (id !== undefined && id !== "" && id !== "null" && id !== null) {
+        setIsSignedIn(true);
+      }
+    });
+  }, []);
+
   const [fontsLoaded] = useFonts({
     Sen: require("../assets/fonts/sen-regular.otf"),
     "Sen-Bold": require("../assets/fonts/sen-bold.otf"),
@@ -37,9 +52,10 @@ function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
     <Stack.Navigator
-      initialRouteName="LoginScreen"
+      initialRouteName={isSignedIn ? "MainScreen" : "LoginScreen"}
       screenOptions={{ headerShown: false }}
       onLayoutRootView={onLayoutRootView}
     >
@@ -49,6 +65,8 @@ function App() {
       <Stack.Screen name="Restaurant" component={RestaurantScreen} />
       <Stack.Screen name="Map" component={MapScreen} />
       <Stack.Screen name="OrderPlaced" component={OrderPlacedScreen} />
+      <Stack.Screen name="CurrentOrders" component={CurrentOrdersScreen} />
+      <Stack.Screen name="PastOrders" component={PastOrdersScreen} />
     </Stack.Navigator>
   );
 }
